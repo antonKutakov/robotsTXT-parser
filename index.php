@@ -22,6 +22,9 @@ class RobotsTxt
         }
     }
 
+    /**
+        Getting robots rules "branches"
+     */
     public function get_robots_branches()
     {
         return $this->robots_branches;
