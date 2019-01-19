@@ -74,6 +74,10 @@ class RobotsTxt
         copy($this->get_url() . "/robots.txt", $dest . "robots.txt");
     }
 
+    /**
+        @user_agent - name of needle bot
+        Getting all disalows by needle user-agent bot
+     */
     public function get_disallows_by_user_agent($user_agent)
     {
         $disalow = "";
@@ -87,6 +91,16 @@ class RobotsTxt
 
         $disalow = trim(str_replace($user_agent, "", $disalow));
         $disalow = explode("Disallow:", $disalow);
+
+        if ($needle_pos = strpos($disalow[count($disalow) - 1], "Clean-param")) {
+            $none_length = strlen($disalow[count($disalow) - 1]);
+            $disalow[count($disalow) - 1] = substr_replace(
+                $disalow[count($disalow) - 1],
+                "",
+                $needle_pos,
+                $none_length - $needle_pos
+            );
+        }
 
         return $disalow;
     }
