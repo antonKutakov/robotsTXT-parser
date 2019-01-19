@@ -17,7 +17,9 @@ class RobotsTxt
 
         $this->robots_branches = explode("User-agent: ", $this->robots);
 
-
+        foreach ($this->robots_branches as $key => $robot) {
+            $robot = trim($robot);
+        }
     }
 
     public function get_robots_branches()
@@ -75,8 +77,8 @@ class RobotsTxt
     }
 
     /**
-        @user_agent - name of needle bot
-        Getting all disalows by needle user-agent bot
+        @user_agent - name of necessary  bot
+        Getting all disalows by necessary  user-agent bot
      */
     public function get_disallows_by_user_agent($user_agent)
     {
@@ -92,6 +94,8 @@ class RobotsTxt
         $disalow = trim(str_replace($user_agent, "", $disalow));
         $disalow = explode("Disallow:", $disalow);
 
+        array_shift($disalow);
+
         if ($needle_pos = strpos($disalow[count($disalow) - 1], "Clean-param")) {
             $none_length = strlen($disalow[count($disalow) - 1]);
             $disalow[count($disalow) - 1] = substr_replace(
@@ -104,10 +108,24 @@ class RobotsTxt
 
         return $disalow;
     }
+
+    /**
+        Return host
+     */
+    public function get_host()
+    {
+        foreach ($this->robots_branches as $key => $robot) {
+            if ($host_pos = strpos($robot, "Host:")) {
+                $host = trim(mb_strcut($robot, $host_pos));
+            }
+        }
+
+        return $host;
+    }
 }
 
 
-$robots = new RobotsTxt("https://eda.ru");
+// $robots = new RobotsTxt("https://eda.ru");
 
 
 // var_dump($robots->get_robots());
@@ -115,7 +133,9 @@ $robots = new RobotsTxt("https://eda.ru");
 // var_dump($robots->get_sitemap());
 // var_dump($robots->get_robots_branches());
 
-$robots->save_sitemap("./assets/");
-$robots->save_robots("./assets/");
-$disalows = $robots->get_disallows_by_user_agent("Yandex");
-var_dump($disalows);
+// $robots->save_sitemap("./assets/");
+// $robots->save_robots("./assets/");
+// $disalows = $robots->get_disallows_by_user_agent("Yandex");
+// $host = $robots->get_host();
+// var_dump($disalows);
+// var_dump($host);
