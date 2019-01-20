@@ -9,3 +9,10 @@ function get_disallows_by_user_agent
 # added possible to getting host
 
 function get_host
+
+# added ui and changed file-structure
+
+app -
+    |-formController.php
+    |-index.php
+    |-robots.php
