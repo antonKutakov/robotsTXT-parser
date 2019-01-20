@@ -12,7 +12,7 @@ function get_host
 
 # added ui and changed file-structure
 
-app -
-    |-formController.php
-    |-index.php
+app -<br>
+    |-formController.php<br>
+    |-index.php<br>
     |-robots.php
