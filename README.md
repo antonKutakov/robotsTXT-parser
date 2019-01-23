@@ -16,3 +16,7 @@ app -<br>
     |-formController.php<br>
     |-index.php<br>
     |-robots.php
+
+# update ui
+
+You may delete assets folder and sitemap.xml with robots.txt to working with app.
