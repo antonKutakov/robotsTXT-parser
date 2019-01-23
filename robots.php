@@ -62,21 +62,33 @@ class RobotsTxt
     }
 
     /**
+        check folder "assets" and create if scandir == false
+     */
+    public function check_assets_dir()
+    {
+        if (!scandir("./assets")) {
+            mkdir("assets");
+        } else return;
+    }
+
+    /**
         @dest - destination folder to saving sitemap.xml
         Saving sitemap.xml into dest folder
      */
-    public function save_sitemap($dest)
+    public function save_sitemap()
     {
-        copy($this->get_sitemap(), $dest . "sitemap.xml");
+        $this->check_assets_dir();
+        copy($this->get_sitemap(), "./assets/sitemap.xml");
     }
 
     /**
         @dest - destination folder to saving sitemap.xml
         Saving robots.txt into dest folder
      */
-    public function save_robots($dest)
+    public function save_robots()
     {
-        copy($this->get_url() . "/robots.txt", $dest . "robots.txt");
+        $this->check_assets_dir();
+        copy($this->get_url() . "/robots.txt", "./assets/robots.txt");
     }
 
     /**
@@ -126,19 +138,3 @@ class RobotsTxt
         return $host;
     }
 }
-
-
-// $robots = new RobotsTxt("https://eda.ru");
-
-
-// var_dump($robots->get_robots());
-// var_dump($robots->get_url());
-// var_dump($robots->get_sitemap());
-// var_dump($robots->get_robots_branches());
-
-// $robots->save_sitemap("./assets/");
-// $robots->save_robots("./assets/");
-// $disalows = $robots->get_disallows_by_user_agent("Yandex");
-// $host = $robots->get_host();
-// var_dump($disalows);
-// var_dump($host);
